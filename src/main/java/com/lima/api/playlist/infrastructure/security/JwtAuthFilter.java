@@ -33,12 +33,16 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
             if (!login.isEmpty()) {
                 var user = userRepository.findByLogin(login);
-                var authentication = new UsernamePasswordAuthenticationToken(
-                        user, null, user.getAuthorities()
-                );
-                authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
-                SecurityContextHolder.getContext().setAuthentication(authentication);
+                if (user != null) {
+                    var authentication = new UsernamePasswordAuthenticationToken(
+                            user, null, user.getAuthorities()
+                    );
+                    authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                    SecurityContextHolder.getContext().setAuthentication(authentication);
+                } else {
+                    logger.warn(String.format("Usuário com login '%s' não encontrado no banco.", login));
+                }
             }
         }
 
