@@ -1,44 +1,80 @@
-# Documentação da Aplicação
+# Playlist API - Documentação
 
-A API tem como objetivo gerenciar playlists musicais. As funcionalidades disponíveis incluem:
+A **Playlist API** tem como objetivo gerenciar playlists musicais de forma simples e eficiente, permitindo a criação, busca, exclusão e listagem de playlists e gêneros musicais.
 
-- **Criar uma playlist**: Permite o registro de uma nova playlist com nome, descrição e músicas.
-- **Buscar todas as playlists**: Lista todas as playlists registradas.
-- **Buscar uma playlist por nome**: Permite a busca de uma playlist pelo nome.
-- **Deletar uma playlist**: Remove uma playlist existente com base no nome.
-- **Listar gêneros musicais**: Retorna a lista de gêneros disponíveis para preenchimento de músicas.
+---
+
+## Funcionalidades
+
+- **Criar uma playlist**  
+  Registra uma nova playlist com nome, descrição e músicas.
+
+- **Buscar todas as playlists**  
+  Retorna a lista completa de playlists registradas.
+
+- **Buscar uma playlist por nome**  
+  Permite encontrar uma playlist específica pelo nome.
+
+- **Deletar uma playlist**  
+  Remove uma playlist existente com base no nome.
+
+- **Listar gêneros musicais**  
+  Retorna os gêneros musicais disponíveis para seleção.
+
+---
 
 ## Tecnologias Utilizadas
 
 - Java 17
 - Spring Boot 3.3.0
 - Spring Web
-- Spring Security com autenticação via JWT
-- Banco de dados H2 (em memória)
+- Spring Security (JWT para autenticação)
+- H2 Database (em memória)
 - Spring Data JPA
 - Swagger (SpringDoc OpenAPI 3)
 - JUnit
 - Mockito
 - Arquitetura Clean Architecture
 
+---
+
 ## Estrutura da Aplicação
 
-A aplicação foi desenvolvida seguindo os princípios da Clean Architecture, separando claramente as responsabilidades em:
+A aplicação foi desenvolvida com base nos princípios da **Clean Architecture**, garantindo separação clara de responsabilidades:
 
-- **Controllers (Adapters In)**: Recebem as requisições HTTP.
-- **Use Cases (Application)**: Contêm a lógica de negócio da aplicação.
-- **Gateways (Ports Out)**: Interfaces que conectam o domínio com implementações externas.
-- **Infraestrutura (Adapters Out)**: Implementações de acesso a banco de dados, segurança, etc.
+- **Controllers (Adapters In)**  
+  Responsáveis por receber requisições HTTP e encaminhar para os casos de uso.
 
-## Executando a Aplicação
+- **Use Cases (Application Layer)**  
+  Contêm a lógica de negócio da aplicação.
 
-Para executar a aplicação, navegue até a pasta do projeto e utilize os comandos
+- **Gateways (Ports Out)**  
+  Interfaces que conectam o domínio a serviços externos (banco de dados, autenticação, etc).
 
-```bash:
+- **Adapters Out (Infraestrutura)**  
+  Implementações das portas de saída, como repositórios, autenticação e outros adaptadores externos.
 
-mvn clean install
+---
 
-./mvnw spring-boot:run
+##  Executando a Aplicação
 
-Após a inicialização, siga as instruções para acessar a inerface, caso ainda não tenha feito.
+1. Clone este repositório:
+   ```bash
+   git clone https://github.com/anderson-lima92/playlist-api.git
+   cd playlist-api
+
+
+2. Compile e execute a aplicação:
+   ```bash
+   mvn clean install
+   ./mvnw spring-boot:run
+
+
+3. Após a inicialização, acesse a documentação Swagger:
+
+    http://localhost:8080/swagger-ui/index.html
+
+## Interface Web
+Para utilizar a interface frontend da aplicação, siga as instruções disponíveis no repositório do projeto frontend:
+
 https://github.com/anderson-lima92/playlist-front/blob/main/README.md
