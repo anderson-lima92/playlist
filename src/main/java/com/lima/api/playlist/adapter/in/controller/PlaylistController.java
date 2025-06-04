@@ -3,6 +3,10 @@ package com.lima.api.playlist.adapter.in.controller;
 import com.lima.api.playlist.application.port.in.PlaylistUseCase;
 import com.lima.api.playlist.domain.model.Playlist;
 import com.lima.api.playlist.shared.util.ResponseUtil;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,10 +18,16 @@ import java.util.List;
 @RestController
 @RequestMapping("/lists")
 @RequiredArgsConstructor
+@Tag(name = "Playlists", description = "Endpoints para gerenciamento de playlists")
 public class PlaylistController {
 
     private final PlaylistUseCase service;
 
+    @Operation(summary = "Criar nova playlist", description = "Cria uma nova playlist com as músicas informadas.")
+    @ApiResponses({
+            @ApiResponse(responseCode = "201", description = "Playlist criada com sucesso"),
+            @ApiResponse(responseCode = "400", description = "Erro de validação")
+    })
     @PostMapping
     public ResponseEntity<?> criar(@RequestBody Playlist playlist, UriComponentsBuilder uriBuilder) {
         try {
@@ -26,7 +36,6 @@ public class PlaylistController {
             }
 
             Playlist salva = service.criarPlaylist(playlist);
-
             URI uri = uriBuilder.path("/lists/{nome}").buildAndExpand(salva.getNome()).toUri();
 
             return ResponseEntity.created(uri)
@@ -36,7 +45,8 @@ public class PlaylistController {
         }
     }
 
-
+    @Operation(summary = "Listar playlists", description = "Lista todas as playlists cadastradas.")
+    @ApiResponse(responseCode = "200", description = "Listagem de playlists realizada com sucesso")
     @GetMapping
     public ResponseEntity<?> listar() {
         try {
@@ -47,6 +57,11 @@ public class PlaylistController {
         }
     }
 
+    @Operation(summary = "Buscar playlist por nome", description = "Busca uma playlist pelo nome.")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Playlist encontrada"),
+            @ApiResponse(responseCode = "404", description = "Playlist não encontrada")
+    })
     @GetMapping("/{nome}")
     public ResponseEntity<?> buscar(@PathVariable String nome) {
         try {
@@ -57,6 +72,11 @@ public class PlaylistController {
         }
     }
 
+    @Operation(summary = "Remover playlist por nome", description = "Remove uma playlist pelo nome informado.")
+    @ApiResponses({
+            @ApiResponse(responseCode = "204", description = "Playlist removida com sucesso"),
+            @ApiResponse(responseCode = "404", description = "Playlist não encontrada")
+    })
     @DeleteMapping("/{nome}")
     public ResponseEntity<?> remover(@PathVariable String nome) {
         try {

@@ -7,6 +7,8 @@ import com.lima.api.playlist.shared.dto.LoginResponseDTO;
 import com.lima.api.playlist.shared.dto.RegisterDTO;
 import com.lima.api.playlist.shared.repository.UserRepository;
 import com.lima.api.playlist.shared.util.ResponseUtil;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -18,12 +20,14 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor
+@Tag(name = "Autenticação", description = "Endpoints para login e registro de usuários")
 public class AuthController {
 
     private final AuthenticationManager authManager;
     private final UserRepository userRepository;
     private final TokenService tokenService;
 
+    @Operation(summary = "Realizar login", description = "Autentica o usuário e retorna um token JWT.")
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody @Valid AuthenticationDTO data) {
         try {
@@ -37,6 +41,7 @@ public class AuthController {
         }
     }
 
+    @Operation(summary = "Registrar novo usuário", description = "Cria um novo usuário com login, senha e papel.")
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody @Valid RegisterDTO data) {
         try {
