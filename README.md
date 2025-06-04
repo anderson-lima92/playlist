@@ -32,9 +32,12 @@ A aplicação foi desenvolvida seguindo os princípios da Clean Architecture, se
 
 ## Executando a Aplicação
 
-Para executar a aplicação, navegue até a pasta do projeto e utilize o comando:
+Para executar a aplicação, navegue até a pasta do projeto e utilize os comandos
 
-```bash
+```bash:
+
+mvn clean install
+
 ./mvnw spring-boot:run
 
 Após a inicialização, siga as instruções para acessar a inerface, caso ainda não tenha feito.
